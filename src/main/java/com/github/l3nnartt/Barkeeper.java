@@ -57,7 +57,7 @@ public class Barkeeper extends LabyModAddon {
 
     public void fetch() {
         try {
-            for (JsonElement jsonElement : getURLContent("https://hosting151773.a2e37.netcup.net/lennart/timolia/addon/questions.json").getAsJsonArray()) {
+            for (JsonElement jsonElement : getURLContent("http://hosting151773.a2e37.netcup.net/lennart/timolia/addon/questions.json").getAsJsonArray()) {
                 qestions.add(new DataContainer(jsonElement.getAsJsonObject().get("contains").getAsString(), jsonElement.getAsJsonObject().get("answer").getAsString()));
             }
         } catch (IOException e) {
