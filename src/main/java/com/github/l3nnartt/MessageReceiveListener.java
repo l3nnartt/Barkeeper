@@ -11,11 +11,19 @@ public class MessageReceiveListener implements MessageReceiveEvent {
             if (Barkeeper.getInstance().isEnabledBarkeeper()) {
 
                 if (clean.toLowerCase().contains("@TimoliaBar".toLowerCase())) {
-                    for (DataContainer data : Barkeeper.getInstance().getQestions()) {
+                    boolean found = false;
+                    for (DataContainer data : Barkeeper.getInstance().getConfigHandler().getQestions()) {
                         if (containsIgnoreCase(clean, data.getContains())) {
                             Minecraft.getMinecraft().thePlayer.sendChatMessage(data.getAnswer());
+                            found = true;
+                            break;
                         }
                     }
+
+                    if (!found) {
+                        Minecraft.getMinecraft().thePlayer.sendChatMessage(Barkeeper.getInstance().getConfigHandler().getConfig().getAsJsonObject().get("notFound").getAsString());
+                    }
+
                 }
 
             }
