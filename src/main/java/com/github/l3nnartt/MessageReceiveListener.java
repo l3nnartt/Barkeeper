@@ -9,22 +9,25 @@ public class MessageReceiveListener implements MessageReceiveEvent {
     @Override
     public boolean onReceive(String clean, String formatted) {
 
-        System.out.println(clean);
-        System.out.println(formatted);
-
         if (LabyMod.getInstance().getPlayerName().equals("TimoliaBar")) {
+
             if (Barkeeper.getInstance().isEnabledBarkeeper()) {
+
                 if (clean.toLowerCase().contains("@TimoliaBar".toLowerCase())) {
+
                     if (containsIgnoreCase(clean, "Mathe:")) {
-                        String onlyMessage = getOnlyMessage(clean).replace("Was ist", "").replace("@TimoliaBar", "").replaceAll("\\s","");
+
+                        String onlyMessage = getOnlyMessage(clean).replace("Mathe:", "").replace("@TimoliaBar", "").replaceAll("\\s","");
                         CalculationHandler calculationHandler = new CalculationHandler();
                         CalculationHandler.CalculationResult result = calculationHandler.calculate(onlyMessage);
                         if (result.isError()) {
-                            Minecraft.getMinecraft().thePlayer.sendChatMessage("Entschuldigung, diese Aufgabe ist zu Komplex für mein Gehirn");
+                            Minecraft.getMinecraft().thePlayer.sendChatMessage("Bei der Rechnung ist irgendwas in meinem Kopf kaputt gegangen, bitte versuche es noch einmal oder schreibe L3nnart_");
                         } else {
-                            Minecraft.getMinecraft().thePlayer.sendChatMessage("Lösung: " + onlyMessage + " = " + result.getValue());
+                            Minecraft.getMinecraft().thePlayer.sendChatMessage(onlyMessage + " = " + result.getValue());
                         }
+
                     } else {
+
                         boolean found = false;
                         for (DataContainer data : Barkeeper.getInstance().getConfigHandler().getQestions()) {
                             if (containsIgnoreCase(clean, data.getContains())) {
@@ -37,10 +40,15 @@ public class MessageReceiveListener implements MessageReceiveEvent {
                         if (!found) {
                             Minecraft.getMinecraft().thePlayer.sendChatMessage(Barkeeper.getInstance().getConfigHandler().getConfig().getAsJsonObject().get("notFound").getAsString());
                         }
+
                     }
+
                 }
+
             }
+
         } return false;
+
     }
 
     public boolean containsIgnoreCase(String string, String contains){
