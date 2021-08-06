@@ -30,7 +30,7 @@ public class ConfigHandler {
 
     public void fetch() {
         try {
-            JsonObject content = getURLContent("http://hosting151773.a2e37.netcup.net/lennart/timolia/addon/questions.json").getAsJsonObject();
+            JsonObject content = getURLContent("https://karmatop.de/addon/questions.json").getAsJsonObject();
             config = content.get("config").getAsJsonObject();
             for (JsonElement jsonElement : content.get("questions").getAsJsonArray()) {
                 qestions.add(new DataContainer(jsonElement.getAsJsonObject().get("contains").getAsString(), jsonElement.getAsJsonObject().get("answer").getAsString()));
